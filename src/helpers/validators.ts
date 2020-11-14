@@ -1,14 +1,4 @@
-import {
-  KEY_LENGTH,
-  MAX_MSG_LENGTH,
-  PREFIXED_KEY_LENGTH,
-  ERROR_BAD_PRIVATE_KEY,
-  ERROR_BAD_PUBLIC_KEY,
-  ERROR_EMPTY_MESSAGE,
-  ERROR_MESSAGE_TOO_LONG,
-  LENGTH_0,
-  MAX_KEY_LENGTH,
-} from '../constants';
+import { LENGTH_0, MAX_KEY_LENGTH } from '../constants';
 
 export function assert(condition: boolean, message: string): void {
   if (!condition) {
@@ -34,20 +24,4 @@ export function isValidKeyLength(length: number) {
     length > MAX_KEY_LENGTH ||
     parseInt(String(length)) !== length
   );
-}
-
-export function checkPrivateKey(privateKey: Uint8Array): void {
-  assert(privateKey.length === KEY_LENGTH, ERROR_BAD_PRIVATE_KEY);
-}
-
-export function checkPublicKey(publicKey: Uint8Array): void {
-  assert(publicKey.length === PREFIXED_KEY_LENGTH, ERROR_BAD_PUBLIC_KEY);
-  if (publicKey.length === PREFIXED_KEY_LENGTH) {
-    assert(publicKey[0] === 2 || publicKey[0] === 3, ERROR_BAD_PUBLIC_KEY);
-  }
-}
-
-export function checkMessage(msg: Uint8Array): void {
-  assert(msg.length > 0, ERROR_EMPTY_MESSAGE);
-  assert(msg.length <= MAX_MSG_LENGTH, ERROR_MESSAGE_TOO_LONG);
 }

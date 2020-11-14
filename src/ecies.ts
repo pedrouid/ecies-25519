@@ -1,3 +1,5 @@
+import * as x25519 from '@stablelib/x25519';
+
 import {
   aesCbcEncrypt,
   aesCbcDecrypt,
@@ -19,22 +21,33 @@ import {
   KEY_LENGTH,
   IV_LENGTH,
   MAC_LENGTH,
-  PREFIXED_KEY_LENGTH,
   ERROR_BAD_MAC,
 } from './constants';
-import { PreEncryptOpts, Encrypted, assert, KeyPair } from './helpers';
+import { EncryptOpts, Encrypted, assert, KeyPair, PNRG } from './helpers';
 
 export function deriveSharedKey(
   privateKey: Uint8Array,
   publicKey: Uint8Array
 ): Uint8Array {
-  return new Uint8Array();
+  return x25519.sharedKey(privateKey, publicKey);
 }
 
-export function generateKeyPair(): KeyPair {
+export function generatePnrgFromEntropy(entropy: Uint8Array): PNRG {
   return {
-    publicKey: new Uint8Array([]),
-    privateKey: new Uint8Array([]),
+    isAvailable: true,
+    randomBytes: () => entropy,
+  };
+}
+
+export function generateKeyPair(entropy?: Uint8Array): KeyPair {
+  const prng =
+    typeof entropy !== 'undefined'
+      ? generatePnrgFromEntropy(entropy)
+      : undefined;
+  const keyPair = x25519.generateKeyPair(prng);
+  return {
+    publicKey: keyPair.publicKey,
+    privateKey: keyPair.secretKey,
   };
 }
 
@@ -62,41 +75,38 @@ function getEciesKeysSync(privateKey: Uint8Array, publicKey: Uint8Array) {
   return { encryptionKey: getEncryptionKey(hash), macKey: getMacKey(hash) };
 }
 
-function getEphemKeyPair(opts?: Partial<PreEncryptOpts>) {
-  const keyPair = generateKeyPair();
+function getSenderKeyPair(opts?: Partial<EncryptOpts>) {
+  const keyPair = opts?.sender || generateKeyPair();
   return {
-    ephemPrivateKey: keyPair.privateKey,
-    ephemPublicKey: keyPair.publicKey,
+    privateKey: keyPair.privateKey,
+    publicKey: keyPair.publicKey,
   };
 }
 
 export async function encrypt(
-  publicKeyTo: Uint8Array,
+  receiverPublicKey: Uint8Array,
   msg: Uint8Array,
-  opts?: Partial<PreEncryptOpts>
+  opts?: EncryptOpts
 ): Promise<Encrypted> {
-  const { ephemPrivateKey, ephemPublicKey } = getEphemKeyPair(opts);
+  const { publicKey, privateKey } = getSenderKeyPair(opts);
   const { encryptionKey, macKey } = await getEciesKeys(
-    ephemPrivateKey,
-    publicKeyTo
+    privateKey,
+    receiverPublicKey
   );
   const iv = opts?.iv || randomBytes(IV_LENGTH);
   const ciphertext = await aesCbcEncrypt(iv, encryptionKey, msg);
-  const dataToMac = concatArrays(iv, ephemPublicKey, ciphertext);
+  const dataToMac = concatArrays(iv, publicKey, ciphertext);
   const mac = await hmacSha256Sign(macKey, dataToMac);
-  return { iv, ephemPublicKey, ciphertext, mac: mac };
+  return { iv, publicKey, ciphertext, mac };
 }
 
 export async function decrypt(
   privateKey: Uint8Array,
   opts: Encrypted
 ): Promise<Uint8Array> {
-  const { ephemPublicKey, iv, mac, ciphertext } = opts;
-  const { encryptionKey, macKey } = await getEciesKeys(
-    privateKey,
-    ephemPublicKey
-  );
-  const dataToMac = concatArrays(iv, ephemPublicKey, ciphertext);
+  const { publicKey, iv, mac, ciphertext } = opts;
+  const { encryptionKey, macKey } = await getEciesKeys(privateKey, publicKey);
+  const dataToMac = concatArrays(iv, publicKey, ciphertext);
   const macTest = await hmacSha256Verify(macKey, dataToMac, mac);
   assert(macTest, ERROR_BAD_MAC);
   const msg = await aesCbcDecrypt(opts.iv, encryptionKey, opts.ciphertext);
@@ -104,32 +114,29 @@ export async function decrypt(
 }
 
 export function encryptSync(
-  publicKeyTo: Uint8Array,
+  receiverPublicKey: Uint8Array,
   msg: Uint8Array,
-  opts?: Partial<PreEncryptOpts>
+  opts?: Partial<EncryptOpts>
 ): Encrypted {
-  const { ephemPrivateKey, ephemPublicKey } = getEphemKeyPair(opts);
+  const { privateKey, publicKey } = getSenderKeyPair(opts);
   const { encryptionKey, macKey } = getEciesKeysSync(
-    ephemPrivateKey,
-    publicKeyTo
+    privateKey,
+    receiverPublicKey
   );
   const iv = opts?.iv || randomBytes(IV_LENGTH);
   const ciphertext = aesCbcEncryptSync(iv, encryptionKey, msg);
-  const dataToMac = concatArrays(iv, ephemPublicKey, ciphertext);
+  const dataToMac = concatArrays(iv, publicKey, ciphertext);
   const mac = hmacSha256SignSync(macKey, dataToMac);
-  return { iv, ephemPublicKey, ciphertext, mac: mac };
+  return { iv, publicKey, ciphertext, mac };
 }
 
 export async function decryptSync(
   privateKey: Uint8Array,
   opts: Encrypted
 ): Promise<Uint8Array> {
-  const { ephemPublicKey, iv, mac, ciphertext } = opts;
-  const { encryptionKey, macKey } = getEciesKeysSync(
-    privateKey,
-    ephemPublicKey
-  );
-  const dataToMac = concatArrays(iv, ephemPublicKey, ciphertext);
+  const { publicKey, iv, mac, ciphertext } = opts;
+  const { encryptionKey, macKey } = getEciesKeysSync(privateKey, publicKey);
+  const dataToMac = concatArrays(iv, publicKey, ciphertext);
   const macTest = hmacSha256VerifySync(macKey, dataToMac, mac);
   assert(macTest, ERROR_BAD_MAC);
   const msg = aesCbcDecryptSync(opts.iv, encryptionKey, opts.ciphertext);
@@ -137,18 +144,18 @@ export async function decryptSync(
 }
 
 export function serialize(opts: Encrypted): Uint8Array {
-  return concatArrays(opts.iv, opts.ephemPublicKey, opts.mac, opts.ciphertext);
+  return concatArrays(opts.iv, opts.publicKey, opts.mac, opts.ciphertext);
 }
 
 export function deserialize(buf: Uint8Array): Encrypted {
   const slice0 = LENGTH_0;
   const slice1 = slice0 + IV_LENGTH;
-  const slice2 = slice1 + PREFIXED_KEY_LENGTH;
+  const slice2 = slice1 + KEY_LENGTH;
   const slice3 = slice2 + MAC_LENGTH;
   const slice4 = buf.length;
   return {
     iv: buf.slice(slice0, slice1),
-    ephemPublicKey: buf.slice(slice1, slice2),
+    publicKey: buf.slice(slice1, slice2),
     mac: buf.slice(slice2, slice3),
     ciphertext: buf.slice(slice3, slice4),
   };

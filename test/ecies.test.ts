@@ -46,7 +46,7 @@ describe('ECIES', () => {
     const { encrypted } = await testEncrypt(keyPair.publicKey);
     const expectedLength =
       encrypted.ciphertext.length +
-      encrypted.ephemPublicKey.length +
+      encrypted.publicKey.length +
       encrypted.iv.length +
       encrypted.mac.length;
     const serialized = ecies25519.serialize(encrypted);
@@ -60,9 +60,7 @@ describe('ECIES', () => {
     const deserialized = ecies25519.deserialize(serialized);
     expect(deserialized).toBeTruthy();
     expect(compare(deserialized.ciphertext, encrypted.ciphertext)).toBeTruthy();
-    expect(
-      compare(deserialized.ephemPublicKey, encrypted.ephemPublicKey)
-    ).toBeTruthy();
+    expect(compare(deserialized.publicKey, encrypted.publicKey)).toBeTruthy();
     expect(compare(deserialized.iv, encrypted.iv)).toBeTruthy();
     expect(compare(deserialized.mac, encrypted.mac)).toBeTruthy();
   });

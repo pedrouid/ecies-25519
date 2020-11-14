@@ -1,12 +1,13 @@
 export interface Encrypted {
-  ciphertext: Uint8Array;
-  ephemPublicKey: Uint8Array;
   iv: Uint8Array;
   mac: Uint8Array;
+  publicKey: Uint8Array;
+  ciphertext: Uint8Array;
 }
 
-export interface PreEncryptOpts extends Encrypted {
-  ephemPrivateKey: Uint8Array;
+export interface EncryptOpts {
+  iv?: Uint8Array;
+  sender?: KeyPair;
 }
 
 export interface KeyPair {
@@ -14,8 +15,7 @@ export interface KeyPair {
   publicKey: Uint8Array;
 }
 
-export interface Signature {
-  r: Uint8Array;
-  s: Uint8Array;
-  v: Uint8Array;
+export interface PNRG {
+  isAvailable: boolean;
+  randomBytes(length: number): Uint8Array;
 }

@@ -100,7 +100,7 @@ export async function getTestMessageToEncrypt(str = TEST_MESSAGE_STR) {
 
 export async function testEncrypt(
   publicKey: Uint8Array,
-  opts?: Partial<eccies25519.PreEncryptOpts>
+  opts?: Partial<eccies25519.EncryptOpts>
 ) {
   const { str, msg } = await getTestMessageToEncrypt(undefined);
   const encrypted = await eccies25519.encrypt(publicKey, msg, opts);
