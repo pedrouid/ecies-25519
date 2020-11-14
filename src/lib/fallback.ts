@@ -3,9 +3,8 @@ import randomBytes from 'randombytes';
 import * as hash from 'hash.js';
 import { hexToArray } from 'enc-utils';
 
-import * as pkcs7 from './pkcs7';
-
 import { SHA256_NODE_ALGO, HEX_ENC, SHA512_NODE_ALGO } from '../constants';
+import { pkcs7 } from '../helpers';
 
 export function fallbackRandomBytes(length: number): Uint8Array {
   return randomBytes(length);

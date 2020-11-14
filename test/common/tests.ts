@@ -79,12 +79,12 @@ export function testHmacVerify(
 export async function testSharedKeys() {
   const keyPairA = testGenerateKeyPair();
   const keyPairB = testGenerateKeyPair();
-  const sharedKey1 = await eccies25519.deriveSharedKey(
+  const sharedKey1 = await eccies25519.derive(
     keyPairA.privateKey,
     keyPairB.publicKey
   );
 
-  const sharedKey2 = await eccies25519.deriveSharedKey(
+  const sharedKey2 = await eccies25519.derive(
     keyPairB.privateKey,
     keyPairA.publicKey
   );
@@ -103,6 +103,6 @@ export async function testEncrypt(
   opts?: Partial<eccies25519.EncryptOpts>
 ) {
   const { str, msg } = await getTestMessageToEncrypt(undefined);
-  const encrypted = await eccies25519.encrypt(publicKey, msg, opts);
+  const encrypted = await eccies25519.encrypt(msg, publicKey, opts);
   return { str, msg, encrypted };
 }

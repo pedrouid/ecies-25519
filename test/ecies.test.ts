@@ -1,3 +1,4 @@
+import { arrayToUtf8 } from 'enc-utils';
 import * as ecies25519 from '../src';
 import {
   testGenerateKeyPair,
@@ -28,40 +29,27 @@ describe('ECIES', () => {
   it('should decrypt successfully', async () => {
     const { encrypted } = await testEncrypt(keyPair.publicKey);
 
-    const decrypted = await ecies25519.decrypt(keyPair.privateKey, encrypted);
+    const decrypted = await ecies25519.decrypt(encrypted, keyPair.privateKey);
     expect(decrypted).toBeTruthy();
   });
 
   it('decrypted result should match input', async () => {
-    const { str, encrypted } = await testEncrypt(keyPair.publicKey);
+    const { str, msg, encrypted } = await testEncrypt(keyPair.publicKey);
 
-    const decrypted = await ecies25519.decrypt(keyPair.privateKey, encrypted);
+    const decrypted = await ecies25519.decrypt(encrypted, keyPair.privateKey);
     expect(decrypted).toBeTruthy();
 
-    const isMatch = decrypted.toString() === str;
-    expect(isMatch).toBeTruthy();
+    const text = arrayToUtf8(decrypted);
+    expect(decrypted).toEqual(msg);
+    expect(text).toEqual(str);
   });
 
-  it('should serialize successfully', async () => {
+  it('should serialize & deserialize successfully', async () => {
     const { encrypted } = await testEncrypt(keyPair.publicKey);
-    const expectedLength =
-      encrypted.ciphertext.length +
-      encrypted.publicKey.length +
-      encrypted.iv.length +
-      encrypted.mac.length;
-    const serialized = ecies25519.serialize(encrypted);
+    const expectedLength = encrypted.length;
+    const deserialized = ecies25519.deserialize(encrypted);
+    const serialized = ecies25519.serialize(deserialized);
     expect(serialized).toBeTruthy();
     expect(serialized.length === expectedLength).toBeTruthy();
-  });
-
-  it('should deserialize successfully', async () => {
-    const { encrypted } = await testEncrypt(keyPair.publicKey);
-    const serialized = ecies25519.serialize(encrypted);
-    const deserialized = ecies25519.deserialize(serialized);
-    expect(deserialized).toBeTruthy();
-    expect(compare(deserialized.ciphertext, encrypted.ciphertext)).toBeTruthy();
-    expect(compare(deserialized.publicKey, encrypted.publicKey)).toBeTruthy();
-    expect(compare(deserialized.iv, encrypted.iv)).toBeTruthy();
-    expect(compare(deserialized.mac, encrypted.mac)).toBeTruthy();
   });
 });
