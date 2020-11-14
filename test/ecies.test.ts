@@ -1,10 +1,11 @@
-import { arrayToUtf8 } from 'enc-utils';
+import { arrayToHex, arrayToUtf8, hexToArray } from 'enc-utils';
 import * as ecies25519 from '../src';
 import {
   testGenerateKeyPair,
   testEncrypt,
   compare,
   testSharedKeys,
+  TEST_FIXED_IV,
 } from './common';
 
 describe('ECIES', () => {
@@ -28,7 +29,6 @@ describe('ECIES', () => {
 
   it('should decrypt successfully', async () => {
     const { encrypted } = await testEncrypt(keyPair.publicKey);
-
     const decrypted = await ecies25519.decrypt(encrypted, keyPair.privateKey);
     expect(decrypted).toBeTruthy();
   });

@@ -117,7 +117,7 @@ export async function decrypt(
 export function encryptSync(
   msg: Uint8Array,
   receiverPublicKey: Uint8Array,
-  opts?: Partial<EncryptOpts>
+  opts?: EncryptOpts
 ): Uint8Array {
   const { privateKey, publicKey } = getSenderKeyPair(opts);
   const { encryptionKey, macKey } = getEciesKeysSync(
