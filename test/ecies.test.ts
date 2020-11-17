@@ -1,11 +1,10 @@
-import { arrayToHex, arrayToUtf8, hexToArray } from 'enc-utils';
+import { arrayToUtf8 } from 'enc-utils';
 import * as ecies25519 from '../src';
 import {
   testGenerateKeyPair,
   testEncrypt,
   compare,
   testSharedKeys,
-  TEST_FIXED_IV,
 } from './common';
 
 describe('ECIES', () => {
