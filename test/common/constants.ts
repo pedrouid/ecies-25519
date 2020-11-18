@@ -4,13 +4,13 @@ export const TEST_ENTROPY =
   '5f2252b10dca259ef612db7edba2c868a49fc69e6eab5bfbc16a4a1211da6b54';
 
 export const TEST_PRIVATE_KEY =
-  'd726882c07e718f701185cb0da048ddd8650cc78ad4588b615678b69faef42da';
+  '5f2252b10dca259ef612db7edba2c868a49fc69e6eab5bfbc16a4a1211da6b54';
 export const TEST_PUBLIC_KEY =
-  '8c9a1a029e0658ae6d38280810d155dd7ee78d61d8aa4f577742d6859d968703';
+  'a3b4092193bfbe4ccd1ec9690a5491f59173e8c66a9f93293fb954cede57cc43';
 export const TEST_FIXED_IV = '64391e133b04b98aa2fb0479242fb60a';
 
 export const TEST_HMAC_SIG =
-  'edda211afb291803fe97b30077949efea68d95f2e4b20c93d3fdc939d6704dd2';
+  '6ab62968e07349a9cdf5dacddddbbb3aa3bdc80f471868d7a64b13facc9e975d';
 export const TEST_SHA256_HASH =
   '5ec273b808a613f8adc782cac89b9c1ac85069cb2ccbfb3f0d2a8a23a20229cb';
 export const TEST_SHA512_HASH =

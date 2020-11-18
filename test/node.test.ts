@@ -1,4 +1,5 @@
 import { Crypto } from '@peculiar/webcrypto';
+import { concatArrays, hexToArray, utf8ToArray } from 'enc-utils';
 
 import * as envLib from '../src/lib/env';
 import * as nodeLib from '../src/lib/node';
@@ -14,7 +15,6 @@ import {
   TEST_FIXED_IV,
   TEST_HMAC_SIG,
 } from './common';
-import { concatArrays, hexToArray, utf8ToArray } from 'enc-utils';
 
 declare global {
   interface Window {

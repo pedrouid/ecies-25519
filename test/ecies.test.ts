@@ -1,8 +1,16 @@
-import { arrayToHex, arrayToUtf8 } from 'enc-utils';
+import { arrayToUtf8, hexToArray } from 'enc-utils';
 import * as ecies25519 from '../src';
-import { testGenerateKeyPair, testEncrypt, testSharedKeys } from './common';
+import {
+  testGenerateKeyPair,
+  testEncrypt,
+  testSharedKeys,
+  TEST_PRIVATE_KEY,
+  TEST_PUBLIC_KEY,
+  TEST_ENTROPY,
+} from './common';
 
 describe('ECIES', () => {
+  const entropy = hexToArray(TEST_ENTROPY);
   let keyPair: ecies25519.KeyPair;
 
   beforeEach(() => {
@@ -10,12 +18,10 @@ describe('ECIES', () => {
   });
 
   it('should generate the same key pair for given entropy', async () => {
-    const entropy = ecies25519.randomBytes(32);
-    console.log('entropy', arrayToHex(entropy));
-    const keyPair = await ecies25519.generateKeyPair();
-    console.log('publicKey', arrayToHex(keyPair.publicKey));
-    console.log('privateKey', arrayToHex(keyPair.privateKey));
+    const keyPair = await ecies25519.generateKeyPair(entropy);
     expect(keyPair).toBeTruthy();
+    expect(keyPair.privateKey).toEqual(hexToArray(TEST_PRIVATE_KEY));
+    expect(keyPair.publicKey).toEqual(hexToArray(TEST_PUBLIC_KEY));
   });
 
   it('should derive shared keys succesfully', async () => {
