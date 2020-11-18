@@ -1,7 +1,7 @@
 {
   "name": "ecies-25519",
   "description": "Isomorphic Cryptography Library for X25519 ECIES",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "Pedro Gomes <github.com/pedrouid>",
   "license": "MIT",
   "keywords": [
