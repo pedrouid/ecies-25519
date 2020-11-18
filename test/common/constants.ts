@@ -1,9 +1,12 @@
 export const TEST_MESSAGE_STR = 'test message to sign';
 
+export const TEST_ENTROPY =
+  '5f2252b10dca259ef612db7edba2c868a49fc69e6eab5bfbc16a4a1211da6b54';
+
 export const TEST_PRIVATE_KEY =
-  '9fd38e73fdc4dc1dc5381d71c4db585f7af097cb9932956fa7dbf00d27775da4';
+  'd726882c07e718f701185cb0da048ddd8650cc78ad4588b615678b69faef42da';
 export const TEST_PUBLIC_KEY =
-  '8696a298f63948546c1ae63970efe75029671c81e1542384715b5c3ed837cd5c';
+  '8c9a1a029e0658ae6d38280810d155dd7ee78d61d8aa4f577742d6859d968703';
 export const TEST_FIXED_IV = '64391e133b04b98aa2fb0479242fb60a';
 
 export const TEST_HMAC_SIG =

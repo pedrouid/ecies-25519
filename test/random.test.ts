@@ -14,7 +14,6 @@ describe('RandomBytes', () => {
   });
 
   it('should match request byte length', async () => {
-    const isMatch = key.length === length;
-    expect(isMatch).toBeTruthy();
+    expect(key.length).toEqual(length);
   });
 });

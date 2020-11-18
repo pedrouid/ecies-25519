@@ -3,7 +3,6 @@ import {
   testHmacSign,
   testHmacVerify,
   TEST_MESSAGE_STR,
-  compare,
   TEST_PRIVATE_KEY,
   TEST_FIXED_IV,
   TEST_HMAC_SIG,
@@ -18,22 +17,22 @@ describe('HMAC', () => {
   const expectedLength = 32;
   const expectedOutput = hexToArray(TEST_HMAC_SIG);
 
-  let mac: Uint8Array;
+  let output: Uint8Array;
 
   beforeEach(async () => {
-    mac = await testHmacSign(macKey, dataToMac);
+    output = await testHmacSign(macKey, dataToMac);
   });
 
   it('should sign sucessfully', async () => {
-    expect(compare(mac, expectedOutput)).toBeTruthy();
+    expect(output).toEqual(expectedOutput);
   });
 
   it('should output with expected length', async () => {
-    expect(mac.length === expectedLength).toBeTruthy();
+    expect(output.length).toEqual(expectedLength);
   });
 
   it('should verify sucessfully', async () => {
-    const macGood = await testHmacVerify(macKey, dataToMac, mac);
+    const macGood = await testHmacVerify(macKey, dataToMac, output);
     expect(macGood).toBeTruthy();
   });
 });

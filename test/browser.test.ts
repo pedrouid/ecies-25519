@@ -7,7 +7,6 @@ import * as fallbackLib from '../src/lib/fallback';
 import {
   testRandomBytes,
   getTestMessageToEncrypt,
-  compare,
   TEST_MESSAGE_STR,
   TEST_SHA256_HASH,
   TEST_SHA512_HASH,
@@ -48,8 +47,7 @@ describe('Browser', () => {
     });
 
     it('should match request byte length', async () => {
-      const isMatch = key.length === length;
-      expect(isMatch).toBeTruthy();
+      expect(key.length).toEqual(length);
     });
   });
 
@@ -83,35 +81,35 @@ describe('Browser', () => {
       const ciphertext = await browserLib.browserAesEncrypt(iv, key, data);
       const result = await browserLib.browserAesDecrypt(iv, key, ciphertext);
       expect(result).toBeTruthy();
-      expect(compare(data, result)).toBeTruthy();
+      expect(result).toEqual(data);
     });
 
     it('ciphertext should be decrypted by NodeJS', async () => {
       const ciphertext = await browserLib.browserAesEncrypt(iv, key, data);
       const result = nodeLib.nodeAesDecrypt(iv, key, ciphertext);
       expect(result).toBeTruthy();
-      expect(compare(data, result)).toBeTruthy();
+      expect(result).toEqual(data);
     });
 
     it('should decrypt ciphertext from NodeJS', async () => {
       const ciphertext = nodeLib.nodeAesEncrypt(iv, key, data);
       const result = await browserLib.browserAesDecrypt(iv, key, ciphertext);
       expect(result).toBeTruthy();
-      expect(compare(data, result)).toBeTruthy();
+      expect(result).toEqual(data);
     });
 
     it('ciphertext should be decrypted by Fallback', async () => {
       const ciphertext = await browserLib.browserAesEncrypt(iv, key, data);
       const result = fallbackLib.fallbackAesDecrypt(iv, key, ciphertext);
       expect(result).toBeTruthy();
-      expect(compare(data, result)).toBeTruthy();
+      expect(result).toEqual(data);
     });
 
     it('should decrypt ciphertext from Fallback', async () => {
       const ciphertext = fallbackLib.fallbackAesEncrypt(iv, key, data);
       const result = await browserLib.browserAesDecrypt(iv, key, ciphertext);
       expect(result).toBeTruthy();
-      expect(compare(data, result)).toBeTruthy();
+      expect(result).toEqual(data);
     });
   });
 
@@ -127,13 +125,13 @@ describe('Browser', () => {
       it('should hash buffer sucessfully', async () => {
         const input = utf8ToArray(TEST_MESSAGE_STR);
         const output = await browserLib.browserSha256(input);
-        expect(compare(output, expectedOutput)).toBeTruthy();
+        expect(output).toEqual(expectedOutput);
       });
 
       it('should output with expected length', async () => {
         const input = utf8ToArray(TEST_MESSAGE_STR);
         const output = await browserLib.browserSha256(input);
-        expect(output.length === expectedLength).toBeTruthy();
+        expect(output.length).toEqual(expectedLength);
       });
     });
 
@@ -149,13 +147,13 @@ describe('Browser', () => {
       it('should hash buffer sucessfully', async () => {
         const input = utf8ToArray(TEST_MESSAGE_STR);
         const output = await browserLib.browserSha512(input);
-        expect(compare(output, expectedOutput)).toBeTruthy();
+        expect(output).toEqual(expectedOutput);
       });
 
       it('should output with expected length', async () => {
         const input = utf8ToArray(TEST_MESSAGE_STR);
         const output = await browserLib.browserSha512(input);
-        expect(output.length === expectedLength).toBeTruthy();
+        expect(output.length).toEqual(expectedLength);
       });
     });
   });
@@ -169,18 +167,18 @@ describe('Browser', () => {
     const expectedLength = 32;
     const expectedOutput = hexToArray(TEST_HMAC_SIG);
 
-    let mac: Uint8Array;
+    let output: Uint8Array;
 
     beforeEach(async () => {
-      mac = await browserLib.browserHmacSha256Sign(macKey, dataToMac);
+      output = await browserLib.browserHmacSha256Sign(macKey, dataToMac);
     });
 
     it('should sign sucessfully', async () => {
-      expect(compare(mac, expectedOutput)).toBeTruthy();
+      expect(output).toEqual(expectedOutput);
     });
 
     it('should output with expected length', async () => {
-      expect(mac.length === expectedLength).toBeTruthy();
+      expect(output.length).toEqual(expectedLength);
     });
   });
 });

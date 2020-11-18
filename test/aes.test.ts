@@ -3,7 +3,6 @@ import {
   testRandomBytes,
   testAesEncrypt,
   testAesDecrypt,
-  compare,
 } from './common';
 
 describe('AES', () => {
@@ -36,6 +35,6 @@ describe('AES', () => {
   it('decrypted should match input', async () => {
     const ciphertext = await testAesEncrypt(iv, key, data);
     const result = await testAesDecrypt(iv, key, ciphertext);
-    expect(compare(data, result)).toBeTruthy();
+    expect(result).toEqual(data);
   });
 });
