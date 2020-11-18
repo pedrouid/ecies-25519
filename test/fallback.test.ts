@@ -1,8 +1,6 @@
 import { Crypto } from '@peculiar/webcrypto';
 
-import * as nodeLib from '../src/lib/node';
-import * as browserLib from '../src/lib/browser';
-import * as fallbackLib from '../src/lib/fallback';
+import * as ecies25519 from '../src/';
 import {
   testRandomBytes,
   getTestMessageToEncrypt,
@@ -31,7 +29,7 @@ describe('Fallback', () => {
 
     beforeEach(async () => {
       length = 32;
-      key = nodeLib.nodeRandomBytes(length);
+      key = ecies25519.nodeRandomBytes(length);
     });
 
     it('should generate random bytes sucessfully', async () => {
@@ -60,41 +58,41 @@ describe('Fallback', () => {
     });
 
     it('should encrypt successfully', async () => {
-      const ciphertext = fallbackLib.fallbackAesEncrypt(iv, key, data);
+      const ciphertext = ecies25519.fallbackAesEncrypt(iv, key, data);
       expect(ciphertext).toBeTruthy();
     });
 
     it('should decrypt successfully', async () => {
-      const ciphertext = fallbackLib.fallbackAesEncrypt(iv, key, data);
-      const result = fallbackLib.fallbackAesDecrypt(iv, key, ciphertext);
+      const ciphertext = ecies25519.fallbackAesEncrypt(iv, key, data);
+      const result = ecies25519.fallbackAesDecrypt(iv, key, ciphertext);
       expect(result).toBeTruthy();
       expect(result).toEqual(data);
     });
 
     it('ciphertext should be decrypted by NodeJS', async () => {
-      const ciphertext = fallbackLib.fallbackAesEncrypt(iv, key, data);
-      const result = nodeLib.nodeAesDecrypt(iv, key, ciphertext);
+      const ciphertext = ecies25519.fallbackAesEncrypt(iv, key, data);
+      const result = ecies25519.nodeAesDecrypt(iv, key, ciphertext);
       expect(result).toBeTruthy();
       expect(result).toEqual(data);
     });
 
     it('should decrypt ciphertext from NodeJS', async () => {
-      const ciphertext = nodeLib.nodeAesEncrypt(iv, key, data);
-      const result = fallbackLib.fallbackAesDecrypt(iv, key, ciphertext);
+      const ciphertext = ecies25519.nodeAesEncrypt(iv, key, data);
+      const result = ecies25519.fallbackAesDecrypt(iv, key, ciphertext);
       expect(result).toBeTruthy();
       expect(result).toEqual(data);
     });
 
     it('ciphertext should be decrypted by Browser', async () => {
-      const ciphertext = fallbackLib.fallbackAesEncrypt(iv, key, data);
-      const result = await browserLib.browserAesDecrypt(iv, key, ciphertext);
+      const ciphertext = ecies25519.fallbackAesEncrypt(iv, key, data);
+      const result = await ecies25519.browserAesDecrypt(iv, key, ciphertext);
       expect(result).toBeTruthy();
       expect(result).toEqual(data);
     });
 
     it('should decrypt ciphertext from Browser', async () => {
-      const ciphertext = await browserLib.browserAesEncrypt(iv, key, data);
-      const result = fallbackLib.fallbackAesDecrypt(iv, key, ciphertext);
+      const ciphertext = await ecies25519.browserAesEncrypt(iv, key, data);
+      const result = ecies25519.fallbackAesDecrypt(iv, key, ciphertext);
       expect(result).toBeTruthy();
       expect(result).toEqual(data);
     });
@@ -111,13 +109,13 @@ describe('Fallback', () => {
       });
       it('should hash buffer sucessfully', async () => {
         const input = utf8ToArray(TEST_MESSAGE_STR);
-        const output = fallbackLib.fallbackSha256(input);
+        const output = ecies25519.fallbackSha256(input);
         expect(output).toEqual(expectedOutput);
       });
 
       it('should output with expected length', async () => {
         const input = utf8ToArray(TEST_MESSAGE_STR);
-        const output = fallbackLib.fallbackSha256(input);
+        const output = ecies25519.fallbackSha256(input);
         expect(output.length).toEqual(expectedLength);
       });
     });
@@ -133,13 +131,13 @@ describe('Fallback', () => {
 
       it('should hash buffer sucessfully', async () => {
         const input = utf8ToArray(TEST_MESSAGE_STR);
-        const output = fallbackLib.fallbackSha512(input);
+        const output = ecies25519.fallbackSha512(input);
         expect(output).toEqual(expectedOutput);
       });
 
       it('should output with expected length', async () => {
         const input = utf8ToArray(TEST_MESSAGE_STR);
-        const output = fallbackLib.fallbackSha512(input);
+        const output = ecies25519.fallbackSha512(input);
         expect(output.length).toEqual(expectedLength);
       });
     });
@@ -157,7 +155,7 @@ describe('Fallback', () => {
     let output: Uint8Array;
 
     beforeEach(async () => {
-      output = fallbackLib.fallbackHmacSha256Sign(macKey, dataToMac);
+      output = ecies25519.fallbackHmacSha256Sign(macKey, dataToMac);
     });
 
     it('should sign sucessfully', async () => {

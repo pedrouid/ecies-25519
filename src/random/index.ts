@@ -1,9 +1,11 @@
-import { isValidKeyLength } from './helpers';
-
-import { isBrowser, isNode } from './lib/env';
-import { browserRandomBytes } from './lib/browser';
-import { nodeRandomBytes } from './lib/node';
-import { fallbackRandomBytes } from './lib/fallback';
+import {
+  isValidKeyLength,
+  isBrowser,
+  isNode,
+  browserRandomBytes,
+  nodeRandomBytes,
+  fallbackRandomBytes,
+} from '../helpers';
 
 export function randomBytes(length: number): Uint8Array {
   if (!isValidKeyLength(length)) {
