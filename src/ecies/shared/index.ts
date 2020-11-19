@@ -1,6 +1,5 @@
 import * as x25519 from '@stablelib/x25519';
 import { concatArrays } from 'enc-utils';
-
 import {
   KeyPair,
   PNRG,
@@ -10,7 +9,7 @@ import {
   IV_LENGTH,
   MAC_LENGTH,
   EncryptOpts,
-} from '../../helpers';
+} from '@pedrouid/iso-crypto';
 
 export function derive(
   privateKey: Uint8Array,

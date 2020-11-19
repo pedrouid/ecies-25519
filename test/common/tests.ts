@@ -1,4 +1,3 @@
-import crypto from 'crypto';
 import * as encUtils from 'enc-utils';
 
 import * as eccies25519 from '../../src';
@@ -9,51 +8,6 @@ export function testGenerateKeyPair() {
   expect(keyPair.privateKey).toBeTruthy();
   expect(keyPair.publicKey).toBeTruthy();
   return keyPair;
-}
-
-export async function testSha2(msg: Uint8Array, algo: string) {
-  // @ts-ignore
-  const shaMethod = eccies25519[algo];
-  const hash: Uint8Array = shaMethod
-    ? await shaMethod(msg)
-    : crypto
-        .createHash(algo)
-        .update(msg)
-        .digest();
-
-  return hash;
-}
-
-export function testRandomBytes(length: number) {
-  return eccies25519.randomBytes(length);
-}
-
-export function testAesEncrypt(
-  iv: Uint8Array,
-  key: Uint8Array,
-  data: Uint8Array
-) {
-  return eccies25519.aesCbcEncrypt(iv, key, data);
-}
-
-export function testAesDecrypt(
-  iv: Uint8Array,
-  key: Uint8Array,
-  data: Uint8Array
-) {
-  return eccies25519.aesCbcDecrypt(iv, key, data);
-}
-
-export async function testHmacSign(key: Uint8Array, data: Uint8Array) {
-  return eccies25519.hmacSha256Sign(key, data);
-}
-
-export function testHmacVerify(
-  key: Uint8Array,
-  data: Uint8Array,
-  sig: Uint8Array
-) {
-  return eccies25519.hmacSha256Verify(key, data, sig);
 }
 
 export async function testSharedKeys() {
