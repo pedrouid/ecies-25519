@@ -43,7 +43,7 @@
     "publish:beta": "yarn publish --tag=beta"
   },
   "dependencies": {
-    "@pedrouid/iso-crypto": "^1.0.0",
+    "@pedrouid/iso-crypto": "^1.1.0",
     "@stablelib/x25519": "^1.0.0",
     "enc-utils": "^3.0.0"
   },

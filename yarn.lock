@@ -1096,14 +1096,22 @@
     tslib "^2.0.1"
     webcrypto-core "^1.1.6"
 
-"@pedrouid/iso-crypto@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@pedrouid/iso-crypto/-/iso-crypto-1.0.0.tgz#cf06b40ef3da3d7ca7363bd7a521ed59fa2fd13d"
-  integrity sha512-gSz/81Cz2n9p1RHalxN8STtOHg6Dqa+l2Phz36GptpneAcAwOzPmty7FSg58htF4u9V44vEXsc7L8V9ze9j4Xg==
+"@pedrouid/iso-crypto@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@pedrouid/iso-crypto/-/iso-crypto-1.1.0.tgz#3fb4050ea99f2f8ee41ba8661193c0989c815c95"
+  integrity sha512-twi+tW67XT0BSOv4rsegnGo4TQMhfFswS/GY3KhrjFiNw3z9x+cMkfO+itNe1JZghQxsxHuhifvfsnG814g1hQ==
   dependencies:
+    "@pedrouid/iso-random" "^1.1.0"
     aes-js "^3.1.2"
     enc-utils "^3.0.0"
     hash.js "^1.1.7"
+
+"@pedrouid/iso-random@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@pedrouid/iso-random/-/iso-random-1.1.0.tgz#4b9561670fcb31a45e8520852f1bfac34316b111"
+  integrity sha512-U8P2qdbvyU5aom0036dkpp0C9c8pgW1SNhAo8+zPDzgmKA58Hl6dc+ZkQXkE9aHrzN6v/0w+409JMjSYwx5tVw==
+  dependencies:
+    enc-utils "^3.0.0"
     randombytes "^2.1.0"
 
 "@rollup/plugin-babel@^5.1.0":
