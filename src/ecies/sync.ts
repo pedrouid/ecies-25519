@@ -1,24 +1,25 @@
 import {
-  aesCbcEncryptSync,
+  assert,
+  EncryptOpts,
+  ERROR_BAD_MAC,
+  IV_LENGTH,
+  randomBytes,
+} from '@pedrouid/iso-crypto';
+import {
   aesCbcDecryptSync,
+  aesCbcEncryptSync,
   hmacSha256SignSync,
   hmacSha256VerifySync,
-  randomBytes,
   sha512Sync,
-  IV_LENGTH,
-  ERROR_BAD_MAC,
-  EncryptOpts,
-  assert,
-} from '@pedrouid/iso-crypto';
+} from '@pedrouid/iso-crypto/sync';
 import { concatArrays } from 'enc-utils';
-
 import {
+  deserialize,
   getEncryptionKey,
   getMacKey,
-  getSharedKey,
   getSenderKeyPair,
+  getSharedKey,
   serialize,
-  deserialize,
 } from './shared';
 
 function getEciesKeysSync(sharedKey: Uint8Array) {
