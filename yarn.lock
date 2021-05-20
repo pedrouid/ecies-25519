@@ -1101,9 +1101,9 @@
   resolved "https://registry.yarnpkg.com/@pedrouid/environment/-/environment-1.0.1.tgz#858f0f8a057340e0b250398b75ead77d6f4342ec"
   integrity sha512-HaW78NszGzRZd9SeoI3JD11JqY+lubnaOx7Pewj5pfjqWXOEATpeKIFb9Z4t2WBUK2iryiXX3lzWwmYWgUL0Ug==
 
-"@pedrouid/iso-crypto@https://github.com/jmrossy/iso-crypto#3db9cff":
+"@pedrouid/iso-crypto@https://github.com/jmrossy/iso-crypto#7109831":
   version "2.0.0-beta.1"
-  resolved "https://github.com/jmrossy/iso-crypto#3db9cff649a811f8108c4cafeeee373d99c1f4ff"
+  resolved "https://github.com/jmrossy/iso-crypto#71098312e2c55dae818fe68dc233043e74e9f79c"
   dependencies:
     "@pedrouid/environment" "^1.0.1"
     "@pedrouid/iso-random" "^1.2.1"

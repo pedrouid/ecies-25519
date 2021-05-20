@@ -43,7 +43,7 @@
     "publish:beta": "yarn publish --tag=beta"
   },
   "dependencies": {
-    "@pedrouid/iso-crypto": "https://github.com/jmrossy/iso-crypto#3db9cff",
+    "@pedrouid/iso-crypto": "https://github.com/jmrossy/iso-crypto#7109831",
     "@stablelib/x25519": "^1.0.0",
     "enc-utils": "^3.0.0"
   },
