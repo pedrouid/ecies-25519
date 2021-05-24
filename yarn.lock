@@ -1096,21 +1096,28 @@
     tslib "^2.0.1"
     webcrypto-core "^1.1.6"
 
-"@pedrouid/iso-crypto@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@pedrouid/iso-crypto/-/iso-crypto-1.1.0.tgz#3fb4050ea99f2f8ee41ba8661193c0989c815c95"
-  integrity sha512-twi+tW67XT0BSOv4rsegnGo4TQMhfFswS/GY3KhrjFiNw3z9x+cMkfO+itNe1JZghQxsxHuhifvfsnG814g1hQ==
+"@pedrouid/environment@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@pedrouid/environment/-/environment-1.0.1.tgz#858f0f8a057340e0b250398b75ead77d6f4342ec"
+  integrity sha512-HaW78NszGzRZd9SeoI3JD11JqY+lubnaOx7Pewj5pfjqWXOEATpeKIFb9Z4t2WBUK2iryiXX3lzWwmYWgUL0Ug==
+
+"@pedrouid/iso-crypto@^2.0.0-beta.1":
+  version "2.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@pedrouid/iso-crypto/-/iso-crypto-2.0.0-beta.1.tgz#d71ce4c885d10b15cd475a7189b3e4c7f04930e9"
+  integrity sha512-C/VBDePrgoqFwOVnm3Pmqibcgm+kp+qDjbcA4iv0o69wD5mm7a0XeY3PkhDFPQJCvUVfafYH1QGZMdj4VW0uhg==
   dependencies:
-    "@pedrouid/iso-random" "^1.1.0"
+    "@pedrouid/environment" "^1.0.1"
+    "@pedrouid/iso-random" "^1.2.2-beta.1"
     aes-js "^3.1.2"
     enc-utils "^3.0.0"
     hash.js "^1.1.7"
 
-"@pedrouid/iso-random@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@pedrouid/iso-random/-/iso-random-1.1.0.tgz#4b9561670fcb31a45e8520852f1bfac34316b111"
-  integrity sha512-U8P2qdbvyU5aom0036dkpp0C9c8pgW1SNhAo8+zPDzgmKA58Hl6dc+ZkQXkE9aHrzN6v/0w+409JMjSYwx5tVw==
+"@pedrouid/iso-random@^1.2.2-beta.1":
+  version "1.2.2-beta.1"
+  resolved "https://registry.yarnpkg.com/@pedrouid/iso-random/-/iso-random-1.2.2-beta.1.tgz#ddac159441353d8c2ac94565e575a15cef0d45b7"
+  integrity sha512-eqVk2TcZwMs06OU4wKtzUr/7Lc5TUPjBaVX3epEZrQCwuyYvlDs0XfxruVkmbw7RmSu8/auiNmzMeYBc2qIftQ==
   dependencies:
+    "@pedrouid/environment" "^1.0.1"
     enc-utils "^3.0.0"
     randombytes "^2.1.0"
 

@@ -18,11 +18,25 @@
     "curve"
   ],
   "files": [
-    "dist"
+    "dist",
+    "sync"
   ],
   "main": "dist/cjs/index.js",
+  "exports": {
+    ".": {
+      "node": "./dist/cjs/node/index.js",
+      "browser": "./dist/esm/browser/index.js",
+      "default": "./dist/cjs/fallback/index.js"
+    },
+    "./sync": {
+      "node": "./dist/cjs/node/sync.js",
+      "browser": "./dist/esm/browser/sync.js",
+      "default": "./dist/cjs/fallback/sync.js"
+    }
+  },
   "types": "dist/cjs/index.d.ts",
   "unpkg": "dist/umd/index.min.js",
+
   "homepage": "https://github.com/pedrouid/ecies-25519",
   "repository": {
     "type": "git",
@@ -36,14 +50,15 @@
     "clean": "rm -rf dist",
     "build:cjs": "./node_modules/.bin/tsc -p tsconfig.cjs.json",
     "build:umd": "webpack",
-    "build": "yarn clean && yarn build:cjs && yarn build:umd",
+    "build:esm": "yarn tsc -p tsconfig.esm.json",
+    "build": "yarn clean && yarn build:cjs && yarn build:umd && yarn build:esm",
     "test": "tsdx test ./test",
     "lint": "tsdx lint src test",
     "prepare": "yarn lint && yarn build && yarn test",
     "publish:beta": "yarn publish --tag=beta"
   },
   "dependencies": {
-    "@pedrouid/iso-crypto": "^1.1.0",
+    "@pedrouid/iso-crypto": "^2.0.0-beta.1",
     "@stablelib/x25519": "^1.0.0",
     "enc-utils": "^3.0.0"
   },

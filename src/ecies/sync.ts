@@ -9,7 +9,7 @@ import {
   ERROR_BAD_MAC,
   EncryptOpts,
   assert,
-} from '@pedrouid/iso-crypto';
+} from '@pedrouid/iso-crypto/sync';
 import { concatArrays } from 'enc-utils';
 
 import {
