@@ -1101,21 +1101,21 @@
   resolved "https://registry.yarnpkg.com/@pedrouid/environment/-/environment-1.0.1.tgz#858f0f8a057340e0b250398b75ead77d6f4342ec"
   integrity sha512-HaW78NszGzRZd9SeoI3JD11JqY+lubnaOx7Pewj5pfjqWXOEATpeKIFb9Z4t2WBUK2iryiXX3lzWwmYWgUL0Ug==
 
-"@pedrouid/iso-crypto@^2.0.0-beta.3":
-  version "2.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@pedrouid/iso-crypto/-/iso-crypto-2.0.0-beta.3.tgz#43b31ca95042fb0b2a9a63165b4b7525a8610b67"
-  integrity sha512-UxlNeXoH5641ZwCeMHSqkELJIYWlWyMaVPhwwSTLZjVNIpxWA78bgEXYwQP1Ef70rTveV1LudV2JDsStq8+igQ==
+"@pedrouid/iso-crypto@^2.0.0-beta.5":
+  version "2.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/@pedrouid/iso-crypto/-/iso-crypto-2.0.0-beta.5.tgz#67dfa89b68456ff0a360ccb7a0b1f7613e3fafea"
+  integrity sha512-fAoQunzXXyI1zwSe1bpFdyLPizvn5jAGwzgdAnkM9QF6lCHHwczF72+jMb5NWHliPLgYXydRah46vcfI6VtQuw==
   dependencies:
     "@pedrouid/environment" "^1.0.1"
-    "@pedrouid/iso-random" "^2.0.0-beta.3"
+    "@pedrouid/iso-random" "^2.0.0-beta.5"
     aes-js "^3.1.2"
     enc-utils "^3.0.0"
     hash.js "^1.1.7"
 
-"@pedrouid/iso-random@^2.0.0-beta.3":
-  version "2.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@pedrouid/iso-random/-/iso-random-2.0.0-beta.3.tgz#447c9cc34efb3c946d25ac882e917c14e84f18cb"
-  integrity sha512-pOPmM8VEh71h1+1veqBVIjtwHimeOcAvKN4AXyzjWhfI+uM/3uUwAqEAPjjfG0/n1iTz7hJ9R8Hh8m32qFI9BQ==
+"@pedrouid/iso-random@^2.0.0-beta.5":
+  version "2.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/@pedrouid/iso-random/-/iso-random-2.0.0-beta.5.tgz#cb69853947cbfbb66c1942864ab57d0e3ada4959"
+  integrity sha512-QlFqP1QFJfzV/8MGzpRWsHdCj0EWZWvv9mRJe+saaE/rbhjKZYwhOL4j0HhmQPeml6e4Ez3p6WkyzhXPxdPuQw==
   dependencies:
     "@pedrouid/environment" "^1.0.1"
     enc-utils "^3.0.0"
