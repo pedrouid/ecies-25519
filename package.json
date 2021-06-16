@@ -22,6 +22,7 @@
     "sync"
   ],
   "main": "dist/cjs/index.js",
+  "react-native": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "browser": "dist/esm/index.js",
   "types": "./dist/cjs/index.d.ts",
@@ -30,12 +31,14 @@
     ".": {
       "types": "./dist/cjs/index.d.ts",
       "node": "./dist/cjs/index.js",
+      "react-native": "./dist/cjs/index.js",
       "browser": "./dist/esm/index.js",
       "default": "./dist/cjs/index.js"
     },
     "./sync": {
       "types": "./dist/cjs/sync.d.ts",
       "node": "./dist/cjs/sync.js",
+      "react-native": "./dist/cjs/sync.js",
       "browser": "./dist/esm/sync.js",
       "default": "./dist/cjs/sync.js"
     }
@@ -61,7 +64,7 @@
     "publish:beta": "yarn publish --tag=beta"
   },
   "dependencies": {
-    "@pedrouid/iso-crypto": "^2.0.0-beta.5",
+    "@pedrouid/iso-crypto": "^2.0.0-beta.6",
     "@stablelib/x25519": "^1.0.1",
     "enc-utils": "^3.0.0"
   },
