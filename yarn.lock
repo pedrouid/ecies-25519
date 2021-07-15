@@ -1101,10 +1101,10 @@
   resolved "https://registry.yarnpkg.com/@pedrouid/environment/-/environment-1.0.1.tgz#858f0f8a057340e0b250398b75ead77d6f4342ec"
   integrity sha512-HaW78NszGzRZd9SeoI3JD11JqY+lubnaOx7Pewj5pfjqWXOEATpeKIFb9Z4t2WBUK2iryiXX3lzWwmYWgUL0Ug==
 
-"@pedrouid/iso-crypto@^2.0.0-beta.6":
-  version "2.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@pedrouid/iso-crypto/-/iso-crypto-2.0.0-beta.6.tgz#4d13b53bac8332915f65126261b54c2c53a66682"
-  integrity sha512-Hw/MXaCklBV+MQmE7DRHoqMY4M8dMMc4iT1KIicHLB9XWbLRWSPHtQocapGoLQhM/JIz8TAvVqsZx6qyHevvpg==
+"@pedrouid/iso-crypto@^2.0.0-beta.7":
+  version "2.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/@pedrouid/iso-crypto/-/iso-crypto-2.0.0-beta.7.tgz#dc100f002eb4d1635e3399d03843439e497f648e"
+  integrity sha512-5FxV0kH1gWeI+ejAh3yub/niB/ecxdtUUw8BvKFsPNjNHYF4Zz7zMa1EcSSjOri5D/mw6PLW/Vp+3I2wfeICcw==
   dependencies:
     "@pedrouid/environment" "^1.0.1"
     "@pedrouid/iso-random" "^2.0.0-beta.6"
